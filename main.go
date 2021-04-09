@@ -1,26 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/widget"
-	"github.com/flopp/go-findfont"
-	"os"
+	"context"
+	"github.com/rivo/tview"
 )
 
+var system System
+
 func main() {
-	// 查找中文字体的存在
-	fontPath, _ := findfont.Find("WenQuanDengKuanWeiMiHei.ttf")
-	_ = os.Setenv("FYNE_FONT", fontPath) // 设置带中文的字体
-	fmt.Println(os.Getenv("FYNE_FONT"))
+	system.CTX, system.Cancel = context.WithCancel(context.Background())
+	system.APP = tview.NewApplication()
+	system.Pages = tview.NewPages()
+	initPages() // 初始化所有页面
 
-	a := app.New()
-	w := a.NewWindow("中文测试")
-	w.Resize(fyne.NewSize(512, 512))
-	w.SetContent(widget.NewLabel("中文测试一手"))
-
-	w.Show()
-	a.Run()
-	_ = os.Unsetenv("FYNE_FONT")
+	system.APP.SetRoot(system.Pages, true).SetFocus(system.Pages) // 将 pages 组件设置成根组件
+	_ = system.APP.Run()                                          // 启动应用
 }
