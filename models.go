@@ -1,3 +1,7 @@
+/*
+存放自己定义的数据类型
+*/
+
 package main
 
 import (
