@@ -10,7 +10,8 @@ import (
 )
 
 func messageServices() {
-	getHistoryMessage() // 查询历史记录
+	_, _ = system.userConn.conn.Write([]byte("{user&;named&;" + system.userConn.nick + "}")) // 设置用户名
+	getHistoryMessage()                                                                      // 查询历史记录
 
 	isStarted := false
 	var packageData []byte
