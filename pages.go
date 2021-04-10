@@ -134,7 +134,6 @@ func chatPage() (name string,
 		SetRegions(true).
 		SetChangedFunc(func() {
 			system.APP.Draw()
-			messageBox.ScrollToEnd()
 		})
 
 	rootFlex.SetDirection(tview.FlexRow)
@@ -160,8 +159,10 @@ func chatPage() (name string,
 		}
 		if event.Key() == tcell.KeyEnter && inputField.HasFocus() && inputField.GetText() != "" { // 发送
 			// 在 messageBox 中显示个人消息内容
-			_, _ = fmt.Fprintln(messageBox, system.userConn.nick, time.Now().Format("2006-01-02 15:04:05"))
-			_, _ = fmt.Fprintln(messageBox, inputField.GetText())
+			_, _ = fmt.Fprintln(system.messageBox, system.userConn.nick, time.Now().Format("2006-01-02 15:04:05"))
+			_, _ = fmt.Fprintln(system.messageBox, inputField.GetText())
+			_, _ = fmt.Fprint(system.messageBox, "\n")
+			system.messageBox.ScrollToEnd() // 发送信息后自动滚到底部
 			err := sendToServer(inputField.GetText())
 			if err != nil {
 				system.Pages.SwitchToPage("connectError")

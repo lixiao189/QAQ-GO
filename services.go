@@ -58,11 +58,12 @@ func handlePackgeData() {
 			for len(args) < 10 { // 填充一些元素防止爆炸
 				args = append(args, "")
 			}
-			if args[0] == "msg" {
+			if args[0] == "msg" { // 有推送的新消息来
 				_, _ = fmt.Fprintln(system.messageBox, args[1], args[2])
 				_, _ = fmt.Fprintln(system.messageBox, args[3])
+				_, _ = fmt.Fprint(system.messageBox, "\n")
 			}
-			if args[0] == "msghistory" {
+			if args[0] == "msghistory" { // 接收到历史记录
 				for i := 1; i < n; i += 3 {
 					if args[i] != "" {
 						_, _ = fmt.Fprint(system.messageBox, args[i]+" ")
@@ -72,8 +73,10 @@ func handlePackgeData() {
 					}
 					if i+2 < n && args[i+2] != "" {
 						_, _ = fmt.Fprintln(system.messageBox, args[i+2])
+						_, _ = fmt.Fprint(system.messageBox, "\n")
 					}
 				}
+				system.messageBox.ScrollToEnd()
 			}
 		}
 	}
