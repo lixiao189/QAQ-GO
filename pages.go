@@ -54,8 +54,8 @@ func connectErrorPage() (name string, modal *tview.Modal, resize bool, visible b
 	visible = false
 
 	modal = tview.NewModal().
-		SetText("连接失败").
-		AddButtons([]string{"重新连接", "退出"}).
+		SetText("Connect Error").
+		AddButtons([]string{"Reconnect", "Quit"}).
 		SetDoneFunc(func(buttonIndex int, buttonLabel string) {
 			if buttonIndex == 1 {
 				system.APP.Stop()
@@ -73,8 +73,8 @@ func aboutPage() (name string, modal *tview.Modal, resize bool, visible bool) {
 	resize = false
 	visible = false
 
-	modal = tview.NewModal().SetText("关于\n一个用Go语言写成的 TUI 客户端\n作者: Node Sans").
-		AddButtons([]string{"确定"}).
+	modal = tview.NewModal().SetText("About\nA QAQ TUI client which is written in GO\nWritter: Node Sans").
+		AddButtons([]string{"Yes"}).
 		SetDoneFunc(func(buttonIndex int, buttonLable string) {
 			system.Pages.SwitchToPage("chat")
 		})
