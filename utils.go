@@ -1,6 +1,9 @@
 package main
 
+import "encoding/base64"
+
 func sendToServer(message string) error {
+	message = base64.StdEncoding.EncodeToString([]byte(message))
 	packageData := "{msg&;send&;" + message + "}"
 	_, err := system.userConn.conn.Write([]byte(packageData))
 	if err != nil {
